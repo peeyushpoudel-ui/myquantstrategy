@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MNQ Opening Range — myquantstrategy</title>
+<meta name="description" content="Verified 15-min Opening Range Breakout for MNQ futures. $41,350 P&L, 2.15 profit factor, 3-year backtest. Try free for 30 days.">
+<link rel="icon" type="image/png" href="Logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}:root{--brand:#1D9E75;--brand-light:#24c48f;--brand-glow:rgba(29,158,117,.18);--bg:#1a1f25;--bg-card:#22282f;--border:rgba(255,255,255,.07);--border-hover:rgba(29,158,117,.3);--text:#f0f2f5;--text-secondary:#9aa3af;--text-dim:#5f6b7a;--red:#e5534b;--font:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif}
+html{scroll-behavior:smooth}body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}a{color:inherit;text-decoration:none}button{font-family:var(--font);cursor:pointer;border:none}.container{max-width:1100px;margin:0 auto;padding:0 24px}
+.nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(26,31,37,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}.nav-inner{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:0 24px;height:60px}.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:1.1rem;letter-spacing:-.01em}.logo img{height:28px}.logo span{color:var(--brand)}.nav-links{display:flex;gap:24px;align-items:center}.nav-links a{font-size:.88rem;font-weight:500;color:var(--text-secondary);transition:color .2s}.nav-links a:hover{color:var(--text)}.nav-cta{background:0 0;color:var(--text);padding:7px 18px;border-radius:8px;font-size:.85rem;font-weight:600;border:1px solid rgba(255,255,255,.15);transition:all .2s}.nav-cta:hover{border-color:var(--brand);color:var(--brand-light)}.nav-signin{background:var(--brand);color:#fff;padding:7px 18px;border-radius:8px;font-size:.85rem;font-weight:600;transition:all .2s}.nav-signin:hover{background:var(--brand-light)}.mobile-menu-btn{display:none;background:0 0;border:none;color:var(--text);font-size:1.4rem;cursor:pointer}
+.breadcrumb{padding:80px 0 0;font-size:.82rem;color:var(--text-dim)}.breadcrumb a{color:var(--text-secondary)}.breadcrumb a:hover{color:var(--text)}.breadcrumb .sep{margin:0 8px}
+.strategy-page{display:grid;grid-template-columns:1fr 340px;gap:32px;padding:24px 0 80px;align-items:start}
+.proof-section{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;margin-bottom:24px;overflow:hidden}.proof-header{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border)}.proof-header h3{font-size:.92rem;font-weight:700}.proof-badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:5px;font-size:.7rem;font-weight:600;background:rgba(29,158,117,.12);color:var(--brand-light)}.proof-gallery{padding:20px;display:flex;flex-direction:column;gap:12px}.proof-img-wrap{background:#13171d;border-radius:10px;border:1px solid var(--border);overflow:hidden}.proof-img-wrap img{width:100%;display:block;cursor:pointer;transition:transform .2s}.proof-img-wrap img:hover{transform:scale(1.005)}
+.lightbox{display:none;position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;cursor:zoom-out;padding:40px}.lightbox.open{display:flex}.lightbox img{max-width:95%;max-height:90vh;border-radius:8px}.lightbox-close{position:absolute;top:20px;right:24px;background:0 0;border:none;color:#fff;font-size:1.6rem;cursor:pointer;opacity:.7}.lightbox-close:hover{opacity:1}
+.strat-header{margin-bottom:24px}.strat-badges{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}.badge{padding:4px 12px;border-radius:6px;font-size:.72rem;font-weight:600}.badge-verified{background:rgba(29,158,117,.15);color:var(--brand-light)}.badge-tag{background:rgba(255,255,255,.05);color:var(--text-dim)}.strat-title{font-size:1.8rem;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}.strat-seller{font-size:.9rem;color:var(--text-secondary)}.strat-seller .green{color:var(--brand);font-weight:600}
+.metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}.metric-card{background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:18px 16px;text-align:center}.metric-card .label{font-size:.68rem;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}.metric-card .val{font-size:1.1rem;font-weight:800}.metric-card .val.green{color:var(--brand-light)}
+.section-block{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:28px;margin-bottom:24px}.section-block h3{font-size:1rem;font-weight:700;margin-bottom:16px}.section-block p{font-size:.88rem;color:var(--text-secondary);line-height:1.7;margin-bottom:12px}.section-block p:last-child{margin-bottom:0}
+/* Schedule */
+.schedule-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.schedule-item{padding:14px;border-radius:8px;background:rgba(255,255,255,.02)}.schedule-item .s-label{font-size:.7rem;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}.schedule-item .s-val{font-size:.9rem;font-weight:700}.schedule-item .s-val.green{color:var(--brand-light)}
+/* Monte Carlo */
+.mc-bars{display:flex;align-items:flex-end;gap:3px;height:80px;margin:16px 0}.mc-bar{flex:1;border-radius:3px 3px 0 0;min-width:4px}.mc-legend{display:flex;gap:20px;margin-top:8px}.mc-legend-item{display:flex;align-items:center;gap:6px;font-size:.75rem;color:var(--text-secondary)}.mc-dot{width:8px;height:8px;border-radius:2px}.mc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}.mc-stat{text-align:center;padding:12px;border-radius:8px;background:rgba(255,255,255,.02)}.mc-stat .label{font-size:.68rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}.mc-stat .val{font-size:1rem;font-weight:800}.mc-stat .val.green{color:var(--brand-light)}
+.bt-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.03);font-size:.84rem}.bt-row:last-child{border-bottom:none}.bt-row .bt-label{color:var(--text-secondary)}.bt-row .bt-val{font-weight:700;text-align:right}
+.includes-list{list-style:none}.includes-list li{display:flex;align-items:flex-start;gap:10px;padding:8px 0;font-size:.86rem;color:var(--text-secondary)}.includes-list .check{color:var(--brand);font-weight:700;flex-shrink:0;margin-top:1px}
+/* Sidebar */
+.sidebar{position:sticky;top:80px}.subscribe-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:28px;margin-bottom:16px}.subscribe-card .price-row{display:flex;align-items:baseline;gap:6px;margin-bottom:4px}.subscribe-card .price{font-size:2rem;font-weight:800;letter-spacing:-.03em}.subscribe-card .per{font-size:.9rem;color:var(--text-secondary)}.subscribe-card .trial-note{font-size:.82rem;color:var(--brand-light);font-weight:600;margin-bottom:20px}.btn-subscribe{display:block;width:100%;text-align:center;background:var(--brand);color:#fff;padding:14px;border-radius:10px;font-size:.95rem;font-weight:700;transition:all .2s;border:none;cursor:pointer;box-shadow:0 4px 20px var(--brand-glow)}.btn-subscribe:hover{background:var(--brand-light);transform:translateY(-1px)}.subscribe-sub{text-align:center;font-size:.76rem;color:var(--text-dim);margin-top:10px}.subscribe-card .divider{border:none;border-top:1px solid var(--border);margin:20px 0}.sf-item{display:flex;align-items:center;gap:8px;font-size:.82rem;color:var(--text-secondary);padding:5px 0}.sf-icon{color:var(--brand);font-size:.85rem}
+.how-mini{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px}.how-mini h4{font-size:.78rem;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px}.how-mini-step{display:flex;gap:12px;padding:8px 0;align-items:flex-start}.how-mini-num{width:24px;height:24px;border-radius:6px;background:rgba(29,158,117,.1);color:var(--brand);font-weight:800;font-size:.72rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}.how-mini-step p{font-size:.8rem;color:var(--text-secondary);line-height:1.5}.how-mini-step strong{color:var(--text)}
+.seller-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:24px}.seller-card h4{font-size:.78rem;font-weight:600;color:var(--text-dim);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}.seller-info{display:flex;align-items:center;gap:14px;margin-bottom:14px}.seller-avatar{width:44px;height:44px;border-radius:12px;background:rgba(29,158,117,.15);display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--brand);font-size:1.1rem}.seller-name{font-weight:700;font-size:.95rem}.seller-status{font-size:.78rem;color:var(--brand-light);font-weight:600}.seller-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.seller-stat{text-align:center;padding:10px;border-radius:8px;background:rgba(255,255,255,.02)}.seller-stat .label{font-size:.65rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.05em}.seller-stat .val{font-size:.9rem;font-weight:700;margin-top:2px}
+.footer{border-top:1px solid var(--border);padding:44px 0 28px}.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:36px}.footer-brand .logo{margin-bottom:10px}.footer-brand p{font-size:.82rem;color:var(--text-dim);max-width:260px;line-height:1.7}.footer-col h4{font-size:.82rem;font-weight:700;color:var(--text-secondary);margin-bottom:14px}.footer-col a{display:block;font-size:.82rem;color:var(--text-dim);margin-bottom:9px;transition:color .2s}.footer-col a:hover{color:var(--text)}.footer-bottom{padding-top:20px;border-top:1px solid var(--border);display:flex;justify-content:space-between;gap:20px}.footer-bottom p,.footer-bottom a{font-size:.75rem;color:var(--text-dim)}.footer-disclaimer{font-size:.7rem;color:var(--text-dim);max-width:600px;line-height:1.6;margin-top:18px;padding-top:18px;border-top:1px solid var(--border)}
+@media(max-width:900px){.strategy-page{grid-template-columns:1fr}.sidebar{position:static}.metrics-grid{grid-template-columns:repeat(2,1fr)}.mc-stats{grid-template-columns:1fr}.schedule-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:60px;left:0;right:0;background:rgba(26,31,37,.97);padding:20px 24px;gap:14px;border-bottom:1px solid var(--border)}.mobile-menu-btn{display:block}.strat-title{font-size:1.4rem}.metrics-grid{grid-template-columns:repeat(2,1fr)}.footer-grid{grid-template-columns:1fr}.footer-bottom{flex-direction:column}}
+
+/* Auth dropdown */
+.auth-container{position:relative}.auth-btn{display:flex;align-items:center;gap:8px;background:var(--brand);padding:5px 14px 5px 6px;border-radius:8px;cursor:pointer;transition:all .2s;border:none;color:#fff;font-family:var(--font);font-size:.85rem;font-weight:600}.auth-btn:hover{background:var(--brand-light)}.auth-avatar{width:28px;height:28px;border-radius:6px;object-fit:cover}.auth-avatar-placeholder{width:28px;height:28px;border-radius:6px;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff}.auth-dropdown{position:absolute;top:calc(100% + 8px);right:0;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;min-width:180px;padding:6px;display:none;box-shadow:0 12px 32px rgba(0,0,0,.4);z-index:200}.auth-dropdown.open{display:block}.auth-dropdown a,.auth-dropdown button{display:flex;align-items:center;gap:8px;width:100%;padding:10px 14px;border-radius:7px;font-size:.84rem;font-weight:500;color:var(--text-secondary);background:0 0;border:none;cursor:pointer;font-family:var(--font);text-align:left;transition:all .15s}.auth-dropdown a:hover,.auth-dropdown button:hover{background:rgba(255,255,255,.05);color:var(--text)}.auth-dropdown .divider{height:1px;background:var(--border);margin:4px 0}.auth-email{padding:10px 14px;font-size:.75rem;color:var(--text-dim);border-bottom:1px solid var(--border);margin-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+</style>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+<body>
+<nav class="nav"><div class="nav-inner"><a href="index.html" class="logo"><img src="Logo.png" alt="myquantstrategy">my<span>quant</span>strategy</a><div class="nav-links" id="navLinks"><a href="index.html#strategies">Strategies</a><a href="how-it-works.html">How it works</a><a href="pricing.html">Pricing</a><a href="sell.html" class="nav-cta">Sell a strategy</a><div class="auth-container" id="authContainer">
+      <a href="#" class="nav-signin" id="signInBtn" onclick="signInWithGoogle()" style="display:inline-block">Sign in</a>
+      <button class="auth-btn" id="authBtn" onclick="toggleAuthDropdown()" style="display:none">
+        <img class="auth-avatar" id="authAvatar" src="" alt="" onerror="this.style.display='none';document.getElementById('authAvatarPh').style.display='flex'">
+        <div class="auth-avatar-placeholder" id="authAvatarPh" style="display:none"></div>
+        <span id="authName"></span>
+      </button>
+      <div class="auth-dropdown" id="authDropdown">
+        <div class="auth-email" id="authEmail"></div>
+        <a href="account.html">My Account</a>
+        <div class="divider"></div>
+        <button onclick="signOutUser()">Sign out</button>
+      </div>
+    </div></div><button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">☰</button></div></nav>
+
+<div class="container"><div class="breadcrumb"><a href="index.html">Strategies</a><span class="sep">→</span>MNQ Opening Range</div></div>
+
+<div class="container"><div class="strategy-page">
+<div class="main-col">
+
+<div class="strat-header"><div class="strat-badges"><span class="badge badge-verified">✓ Verified</span><span class="badge badge-tag">MNQ Futures</span><span class="badge badge-tag">Breakout</span><span class="badge badge-tag">Funded account ready</span><span class="badge badge-tag">Pine Script v6</span></div><h1 class="strat-title">MNQ Opening Range</h1><p class="strat-seller">by <span class="green">Peeyush</span> · Verified seller · Listed Mar 2026</p></div>
+
+<div class="proof-section"><div class="proof-header"><h3>Backtest proof</h3><span class="proof-badge">📊 Verified screenshots</span></div><div class="proof-gallery">
+<div class="proof-img-wrap"><img src="screenshot1.png" alt="Backtest proof" onclick="openLightbox(this)" onerror="this.parentElement.style.display='none'"></div>
+<div class="proof-img-wrap"><img src="screenshot2.png" alt="Backtest proof" onclick="openLightbox(this)" onerror="this.parentElement.style.display='none'"></div>
+<div class="proof-img-wrap"><img src="screenshot3.png" alt="Backtest proof" onclick="openLightbox(this)" onerror="this.parentElement.style.display='none'"></div>
+<div class="proof-img-wrap"><img src="screenshot4.png" alt="Backtest proof" onclick="openLightbox(this)" onerror="this.parentElement.style.display='none'"></div>
+<div class="proof-img-wrap"><img src="screenshot5.png" alt="Backtest proof" onclick="openLightbox(this)" onerror="this.parentElement.style.display='none'"></div>
+</div></div>
+
+<div class="metrics-grid">
+<div class="metric-card"><div class="label">Total P&L</div><div class="val green">+$41,350</div></div>
+<div class="metric-card"><div class="label">Win Rate</div><div class="val">27.5%</div></div>
+<div class="metric-card"><div class="label">Profit Factor</div><div class="val green">2.146</div></div>
+<div class="metric-card"><div class="label">Max Drawdown</div><div class="val">$2,347</div></div>
+<div class="metric-card"><div class="label">Risk : Reward</div><div class="val green">1 : 7</div></div>
+<div class="metric-card"><div class="label">Total Trades</div><div class="val">198</div></div>
+<div class="metric-card"><div class="label">Avg Trades/Month</div><div class="val">5-6</div></div>
+<div class="metric-card"><div class="label">Annual Return</div><div class="val green">27.4%</div></div>
+</div>
+
+<div class="section-block"><h3>About this strategy</h3><p>A fully mechanical Opening Range Breakout system for MNQ futures. Zero discretion — when the signal fires on your chart, you take the trade. No analysis, no interpretation. The indicator does all the work.</p><p>Backtested over 3 years of real market data. Averages 5-6 trades per month. Requires 15-30 minutes of screen time per day. Designed to stay within funded account drawdown limits.</p></div>
+
+<!-- DAILY TRADING SCHEDULE — replaces the old rules section -->
+<div class="section-block"><h3>Daily trading schedule</h3><p>Here's exactly when to be at your chart and when to walk away. The indicator handles everything else.</p>
+<div class="schedule-grid">
+<div class="schedule-item"><div class="s-label">Trading days</div><div class="s-val">Tuesday – Friday</div></div>
+<div class="schedule-item"><div class="s-label">Skip</div><div class="s-val">Monday (no signals)</div></div>
+<div class="schedule-item"><div class="s-label">Be at your chart</div><div class="s-val green">9:30 – 10:30 AM ET</div></div>
+<div class="schedule-item"><div class="s-label">No signal by 10:30?</div><div class="s-val">Done for the day</div></div>
+<div class="schedule-item"><div class="s-label">Trades per day</div><div class="s-val">1 maximum</div></div>
+<div class="schedule-item"><div class="s-label">Trade closes by</div><div class="s-val">3:58 PM ET (auto)</div></div>
+<div class="schedule-item"><div class="s-label">Daily time commitment</div><div class="s-val green">15-30 minutes</div></div>
+<div class="schedule-item"><div class="s-label">Overnight risk</div><div class="s-val green">None — always flat EOD</div></div>
+</div></div>
+
+<!-- MONTE CARLO — placeholder values, replace with real data before going live -->
+<div class="section-block"><h3>Monte Carlo simulation</h3><p>10,000 randomized simulations showing the probability of profit across thousands of possible outcomes.</p>
+<div class="mc-bars" id="mcBars"></div>
+<div class="mc-legend"><div class="mc-legend-item"><div class="mc-dot" style="background:var(--red)"></div> Loss scenarios</div><div class="mc-legend-item"><div class="mc-dot" style="background:var(--brand)"></div> Profit scenarios</div></div>
+<div class="mc-stats">
+<!-- TODO: Replace with real Monte Carlo results -->
+<div class="mc-stat"><div class="label">Probability of profit</div><div class="val green">94.2%</div></div>
+<div class="mc-stat"><div class="label">Median outcome</div><div class="val green">+$38,400</div></div>
+<div class="mc-stat"><div class="label">Worst case (5th %ile)</div><div class="val">-$3,200</div></div>
+</div></div>
+
+<div class="section-block"><h3>Backtest details</h3>
+<div class="bt-row"><span class="bt-label">Instrument</span><span class="bt-val">MNQ1! (Micro Nasdaq 100)</span></div>
+<div class="bt-row"><span class="bt-label">Timeframe</span><span class="bt-val">1-minute chart</span></div>
+<div class="bt-row"><span class="bt-label">Backtest period</span><span class="bt-val">3 years (2023–2025)</span></div>
+<div class="bt-row"><span class="bt-label">Contracts</span><span class="bt-val">5 per trade</span></div>
+<div class="bt-row"><span class="bt-label">Risk per trade</span><span class="bt-val">$250</span></div>
+<div class="bt-row"><span class="bt-label">Reward per trade</span><span class="bt-val">$1,750</span></div>
+<div class="bt-row"><span class="bt-label">Built with</span><span class="bt-val">Pine Script v6</span></div>
+<div class="bt-row"><span class="bt-label">Verification</span><span class="bt-val" style="color:var(--brand-light)">✓ Independently verified</span></div>
+</div>
+
+<div class="section-block"><h3>What's included</h3><ul class="includes-list">
+<li><span class="check">✓</span> Protected indicator on TradingView — signals appear automatically on your chart</li>
+<li><span class="check">✓</span> Stop loss and take profit levels shown visually</li>
+<li><span class="check">✓</span> Daily bias indicator (long / short / no trade)</li>
+<li><span class="check">✓</span> Full backtest report with every trade</li>
+<li><span class="check">✓</span> Monte Carlo simulation results</li>
+<li><span class="check">✓</span> TradingView setup walkthrough</li>
+<li><span class="check">✓</span> Funded account compatibility guide</li>
+<li><span class="check">✓</span> Automatic strategy updates</li>
+<li><span class="check">✓</span> 30-day free trial — cancel anytime</li>
+</ul></div>
+
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+<div class="subscribe-card"><div class="price-row"><span class="price">$1</span><span class="per">/month</span></div><div class="trial-note">30-day free trial included</div><button class="btn-subscribe" onclick="handleTrialClick()">Start free trial →</button><p class="subscribe-sub">No charge for 30 days · Cancel anytime</p><hr class="divider"><div class="subscribe-features"><div class="sf-item"><span class="sf-icon">✓</span> Signals on your chart</div><div class="sf-item"><span class="sf-icon">✓</span> Stop loss & take profit lines</div><div class="sf-item"><span class="sf-icon">✓</span> Daily bias label</div><div class="sf-item"><span class="sf-icon">✓</span> Funded account compatible</div><div class="sf-item"><span class="sf-icon">✓</span> Auto updates</div><div class="sf-item"><span class="sf-icon">✓</span> 15-30 min/day</div></div></div>
+
+<div class="how-mini"><h4>How it works</h4><div class="how-mini-step"><div class="how-mini-num">1</div><p><strong>Start free trial</strong> — 30 days full access</p></div><div class="how-mini-step"><div class="how-mini-num">2</div><p><strong>Add to TradingView</strong> — indicator loads automatically</p></div><div class="how-mini-step"><div class="how-mini-num">3</div><p><strong>Follow signals</strong> — triangle appears, take the trade</p></div></div>
+
+<div class="seller-card"><h4>Seller</h4><div class="seller-info"><div class="seller-avatar">P</div><div><div class="seller-name">Peeyush</div><div class="seller-status">✓ Verified seller</div></div></div><div class="seller-stats"><div class="seller-stat"><div class="label">Strategies</div><div class="val">1</div></div><div class="seller-stat"><div class="label">Subscribers</div><div class="val">—</div></div><div class="seller-stat"><div class="label">Avg PF</div><div class="val" style="color:var(--brand-light)">2.15</div></div><div class="seller-stat"><div class="label">Since</div><div class="val">2026</div></div></div></div>
+</div>
+
+</div></div>
+
+<div class="container" style="padding-bottom:60px"><p style="font-size:.75rem;color:var(--text-dim);line-height:1.6;padding:20px 0"><strong>Risk Disclaimer:</strong> Trading futures involves substantial risk of loss. Past performance and backtested results are not indicative of future results. Monte Carlo simulations do not guarantee future outcomes. Never trade with money you cannot afford to lose.</p></div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()"><button class="lightbox-close">✕</button><img id="lightbox-img" src="" alt="Zoomed screenshot"></div>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="index.html" class="logo"><img src="Logo.png" alt="myquantstrategy">my<span>quant</span>strategy</a><p>The marketplace for verified quant trading strategies.</p></div><div class="footer-col"><h4>For Traders</h4><a href="index.html#strategies">Browse</a><a href="pricing.html">Pricing</a><a href="how-it-works.html">How It Works</a></div><div class="footer-col"><h4>For Sellers</h4><a href="sell.html">List Strategy</a><a href="sell.html#apply">Apply</a></div><div class="footer-col"><h4>Follow</h4><a href="#">TikTok</a><a href="#">YouTube</a><a href="#">Twitter / X</a></div></div><div class="footer-bottom"><p>&copy; 2026 myquantstrategy</p><p><a href="#">Terms</a> · <a href="#">Privacy</a></p></div></div></footer>
+
+<script>
+function openLightbox(img){document.getElementById('lightbox-img').src=img.src;document.getElementById('lightbox').classList.add('open');document.body.style.overflow='hidden'}
+function closeLightbox(){document.getElementById('lightbox').classList.remove('open');document.body.style.overflow=''}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
+const mc=document.getElementById('mcBars');[8,12,18,15,10,7,12,20,30,42,55,68,78,72,65,55,48,40,35,28,22,18,14,10,7,5,3,2].forEach((h,i)=>{const b=document.createElement('div');b.className='mc-bar';b.style.height=(h/78*100)+'%';b.style.background=i<6?'var(--red)':'var(--brand)';b.style.opacity=i<6?'.7':'.85';mc.appendChild(b)});
+window.addEventListener('load',()=>{const w=document.querySelectorAll('.proof-img-wrap');const v=[...w].filter(x=>x.style.display!=='none');if(v.length===0){const g=document.querySelector('.proof-gallery');g.innerHTML='<div style="padding:48px 24px;text-align:center;color:var(--text-dim);font-size:.84rem"><div style="font-size:1.8rem;margin-bottom:10px;opacity:.4">📸</div>Screenshots coming soon</div>'}});
+</script>
+<script>
+const firebaseConfig={apiKey:"AIzaSyAaTGjJiml356-ZB8oRzD0BvaphVY2jcBY",authDomain:"myquantstrategy.firebaseapp.com",projectId:"myquantstrategy",storageBucket:"myquantstrategy.firebasestorage.app",messagingSenderId:"299573986626",appId:"1:299573986626:web:b3dd05f80210cd9890b4db",measurementId:"G-C325W7LY36"};
+firebase.initializeApp(firebaseConfig);
+const auth=firebase.auth();
+const db=firebase.firestore();
+
+auth.onAuthStateChanged(user=>{
+  const signInBtn=document.getElementById('signInBtn');
+  const authBtn=document.getElementById('authBtn');
+  const authAvatar=document.getElementById('authAvatar');
+  const authAvatarPh=document.getElementById('authAvatarPh');
+  const authName=document.getElementById('authName');
+  const authEmail=document.getElementById('authEmail');
+  if(user){
+    signInBtn.style.display='none';
+    authBtn.style.display='flex';
+    const firstName=user.displayName?user.displayName.split(' ')[0]:'Account';
+    authName.textContent=firstName;
+    authEmail.textContent=user.email||'';
+    if(user.photoURL){authAvatar.src=user.photoURL;authAvatar.style.display='block';authAvatarPh.style.display='none'}
+    else{authAvatar.style.display='none';authAvatarPh.style.display='flex';authAvatarPh.textContent=firstName.charAt(0).toUpperCase()}
+    db.collection('users').doc(user.uid).set({
+      name:user.displayName||'',
+      email:user.email||'',
+      photoURL:user.photoURL||'',
+      lastLogin:firebase.firestore.FieldValue.serverTimestamp()
+    },{merge:true}).then(()=>{
+      return db.collection('users').doc(user.uid).get();
+    }).then(doc=>{
+      if(doc.exists&&!doc.data().createdAt){
+        db.collection('users').doc(user.uid).update({createdAt:firebase.firestore.FieldValue.serverTimestamp()});
+      }
+    }).catch(err=>console.error('Firestore error:',err));
+  }else{
+    signInBtn.style.display='inline-block';
+    authBtn.style.display='none';
+    document.getElementById('authDropdown').classList.remove('open');
+  }
+});
+
+function signInWithGoogle(){
+  const provider=new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider).catch(err=>{console.error('Sign-in error:',err);alert('Sign-in failed. Please try again.')});
+}
+
+function signOutUser(){
+  auth.signOut().then(()=>{document.getElementById('authDropdown').classList.remove('open')}).catch(err=>console.error('Sign-out error:',err));
+}
+
+function toggleAuthDropdown(){
+  document.getElementById('authDropdown').classList.toggle('open');
+}
+
+document.addEventListener('click',e=>{
+  const container=document.getElementById('authContainer');
+  if(container&&!container.contains(e.target)){document.getElementById('authDropdown').classList.remove('open')}
+});
+</script>
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+function handleTrialClick(){
+  const user=firebase.auth().currentUser;
+  if(!user){
+    if(confirm('You need to sign in to start a free trial. Sign in with Google now?')){signInWithGoogle()}
+    return;
+  }
+  const btn=document.querySelector('.btn-subscribe');
+  btn.textContent='Redirecting to checkout...';
+  btn.disabled=true;
+  fetch('/api/create-checkout',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({
+      email:user.email,
+      uid:user.uid,
+      priceId:'price_1TJmcjLlJBcwRILlbWWbWvaJ'
+    })
+  }).then(r=>r.json()).then(data=>{
+    if(data.url){
+      window.location.href=data.url;
+    }else{
+      alert('Something went wrong. Please try again.');
+      btn.textContent='Start free trial →';
+      btn.disabled=false;
+    }
+  }).catch(err=>{
+    console.error(err);
+    alert('Something went wrong. Please try again.');
+    btn.textContent='Start free trial →';
+    btn.disabled=false;
+  });
+}
+</script>
+</body>
+</html>
