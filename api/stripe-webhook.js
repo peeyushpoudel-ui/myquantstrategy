@@ -1,44 +1,5 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const https = require('https');
-
-function sendEmail(templateParams) {
-  return new Promise((resolve, reject) => {
-    const data = JSON.stringify({
-      service_id: 'service_3r6dyxy',
-      template_id: 'template_8tcy4ov',
-      user_id: '6jn5GzkeScXTUhhOP',
-      template_params: templateParams
-    });
-
-    const options = {
-      hostname: 'api.emailjs.com',
-      port: 443,
-      path: '/api/v1.6/email/send',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(data)
-      }
-    };
-
-    const req = https.request(options, (resp) => {
-      let body = '';
-      resp.on('data', (chunk) => { body += chunk; });
-      resp.on('end', () => {
-        console.log('EmailJS response:', resp.statusCode, body);
-        resolve(body);
-      });
-    });
-
-    req.on('error', (err) => {
-      console.error('EmailJS request error:', err.message);
-      reject(err);
-    });
-
-    req.write(data);
-    req.end();
-  });
-}
+const emailjs = require('@emailjs/nodejs');
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -57,14 +18,24 @@ module.exports = async (req, res) => {
 
       console.log('Processing checkout for:', customerEmail, 'UID:', firebaseUID);
 
-      await sendEmail({
-        subscriber_name: session.customer_details?.name || 'Unknown',
-        subscriber_email: customerEmail,
-        tv_username: 'Check Firebase - UID: ' + firebaseUID,
-        strategy_name: 'MNQ Opening Range'
-      });
-
-      console.log('Subscriber email sent for:', customerEmail);
+      try {
+        const response = await emailjs.send(
+          'service_3r6dyxy',
+          'template_8tcy4ov',
+          {
+            subscriber_name: session.customer_details?.name || 'Unknown',
+            subscriber_email: customerEmail,
+            tv_username: 'Check Firebase - UID: ' + firebaseUID,
+            strategy_name: 'MNQ Opening Range'
+          },
+          {
+            publicKey: '6jn5GzkeScXTUhhOP',
+          }
+        );
+        console.log('EmailJS success:', response.status, response.text);
+      } catch (emailErr) {
+        console.error('EmailJS error:', emailErr.status, emailErr.text || emailErr.message);
+      }
     }
 
     if (event.type === 'customer.subscription.deleted') {
@@ -73,14 +44,24 @@ module.exports = async (req, res) => {
 
       console.log('Processing cancellation for:', customer.email);
 
-      await sendEmail({
-        subscriber_name: customer.name || 'Unknown',
-        subscriber_email: customer.email || '',
-        tv_username: 'CANCELLED — remove TradingView access',
-        strategy_name: 'MNQ Opening Range'
-      });
-
-      console.log('Cancellation email sent for:', customer.email);
+      try {
+        const response = await emailjs.send(
+          'service_3r6dyxy',
+          'template_8tcy4ov',
+          {
+            subscriber_name: customer.name || 'Unknown',
+            subscriber_email: customer.email || '',
+            tv_username: 'CANCELLED — remove TradingView access',
+            strategy_name: 'MNQ Opening Range'
+          },
+          {
+            publicKey: '6jn5GzkeScXTUhhOP',
+          }
+        );
+        console.log('EmailJS success:', response.status, response.text);
+      } catch (emailErr) {
+        console.error('EmailJS error:', emailErr.status, emailErr.text || emailErr.message);
+      }
     }
 
     return res.status(200).json({ received: true });
