@@ -30,6 +30,7 @@ module.exports = async (req, res) => {
           },
           {
             publicKey: '6jn5GzkeScXTUhhOP',
+            privateKey: 'h72164tvNGLVvb6XlBFfZ',
           }
         );
         console.log('EmailJS success:', response.status, response.text);
@@ -56,6 +57,7 @@ module.exports = async (req, res) => {
           },
           {
             publicKey: '6jn5GzkeScXTUhhOP',
+            privateKey: 'h72164tvNGLVvb6XlBFfZ',
           }
         );
         console.log('EmailJS success:', response.status, response.text);
