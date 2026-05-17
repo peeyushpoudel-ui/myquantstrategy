@@ -15,8 +15,9 @@ module.exports = async (req, res) => {
       
       const customerEmail = session.customer_email || '';
       const firebaseUID = session.metadata?.firebaseUID || '';
+      const tvUsername = session.metadata?.tradingviewUsername || 'Not provided — check Firebase';
 
-      console.log('Processing checkout for:', customerEmail, 'UID:', firebaseUID);
+      console.log('Processing checkout for:', customerEmail, 'TV:', tvUsername);
 
       try {
         const response = await emailjs.send(
@@ -25,7 +26,7 @@ module.exports = async (req, res) => {
           {
             subscriber_name: session.customer_details?.name || 'Unknown',
             subscriber_email: customerEmail,
-            tv_username: 'Check Firebase - UID: ' + firebaseUID,
+            tv_username: tvUsername,
             strategy_name: 'MNQ Opening Range'
           },
           {
