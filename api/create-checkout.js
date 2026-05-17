@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
   }
 
   try {
-    const { email, uid, priceId } = req.body;
+    const { email, uid, priceId, tvUsername } = req.body;
 
     if (!email || !priceId) {
       return res.status(400).json({ error: 'Missing required fields' });
@@ -25,12 +25,14 @@ module.exports = async (req, res) => {
       payment_method_types: ['card'],
       customer_email: email,
       metadata: {
-        firebaseUID: uid || ''
+        firebaseUID: uid || '',
+        tradingviewUsername: tvUsername || ''
       },
       subscription_data: {
         trial_period_days: 30,
         metadata: {
-          firebaseUID: uid || ''
+          firebaseUID: uid || '',
+          tradingviewUsername: tvUsername || ''
         }
       },
       line_items: [
